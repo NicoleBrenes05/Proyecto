@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit.Sdk;
+
 
 namespace GestionAereolinea.Model
 {
@@ -19,8 +15,15 @@ namespace GestionAereolinea.Model
         [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "El telefono debe tener 8 números")]
        
         public string Telefono { get; set; }
+  
+        [Required(ErrorMessage = "El código de la aerolínea es requerido")]
+        public string Codigo { get; set; }
+        [Required(ErrorMessage = "El país de la aerolínea es requerido")]
+        public string PaísOrigen {  get; set; }
 
         public List<Avion>? Aviones { get; set; }
+
+        
 
     }
 }

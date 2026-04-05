@@ -16,11 +16,14 @@ namespace GestionAereolinea.BL
             _aerolineaRepository = aerolineaRepository;
         }
 
+       
+
         public async Task AgregueAsync(Aerolinea aerolinea)
         {
             await _aerolineaRepository.AgregarAsync(aerolinea);
         }
 
+   
         public async Task EditeAsync(Aerolinea aerolinea)
         {
             await _aerolineaRepository.ActualizarAsync(aerolinea);

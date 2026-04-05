@@ -1,15 +1,28 @@
+﻿using GestionAereolinea.UI;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// 🔹 Configuración del HttpClient
+var apiConfig = builder.Configuration.GetSection("AerolineaApi");
+var urlBase = apiConfig.GetValue<string>("BaseUrl");
+
+builder.Services.AddHttpClient("AerolineaApi", client =>
+{
+    client.BaseAddress = new Uri(urlBase);
+});
+
+// 🔹 Inyección del servicio
+builder.Services.AddScoped<ServicioApi>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -20,6 +33,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// 🔹 Ruta por defecto
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

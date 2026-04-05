@@ -26,5 +26,7 @@ namespace GestionAereolinea.Model
 
         [JsonIgnore]
         public Aerolinea? Aerolinea { get; set; }
+       
+        public Estado Estado { get; set; }
     }
 }

@@ -57,5 +57,44 @@ namespace GestionAereolinea.API.Controllers
             await _adminAviones.EditeAsync(avion);
             return Ok("Avión actualizado correctamente");
         }
+
+        [HttpGet("ObtengaLaLista")]
+        public async Task<ActionResult<IEnumerable<Avion>>> ObtengaLaLista()
+        {
+            var lista = await _adminAviones.ObtengaLaListaDeActivosAsync();
+            return Ok(lista);
+        }
+
+        [HttpGet("ObtengaLaListaDeActivos")]
+        public async Task<ActionResult<IEnumerable<Avion>>> ObtengaLaListaDeActivos()
+        {
+            var lista = await _adminAviones.ObtengaLaListaDeActivosAsync();
+            return Ok(lista);
+        }
+
+        [HttpGet("ObtengaLaListaDeInActivos")]
+        public async Task<ActionResult<IEnumerable<Avion>>> ObtengaLaListaDeInActivos()
+        {
+            var lista = await _adminAviones.ObtengaLaListaDeInActivosAsync();
+            return Ok(lista);
+        }
+
+        [HttpGet("ObtengaElAvion")]
+        public async Task<ActionResult<Avion>> ObtengaElAvion(int id)
+        {
+            var avion = await _adminAviones.ObtengaAsync(id);
+            if (avion == null)
+                return NotFound();
+
+            return Ok(avion);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Eliminar(int id)
+        {
+            await _adminAviones.EliminarAsync(id);
+            return Ok("Avión eliminado correctamente");
+        }
+
     }
 }

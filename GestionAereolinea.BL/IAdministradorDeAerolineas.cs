@@ -22,5 +22,9 @@ namespace GestionAereolinea.BL
         Task AgregueAsync(Aerolinea aerolinea);
 
         Task EditeAsync(Aerolinea aerolinea);
+
+      
+
+        
     }
 }

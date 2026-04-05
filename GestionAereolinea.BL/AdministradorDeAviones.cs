@@ -38,5 +38,30 @@ namespace GestionAereolinea.BL
         {
             await _avionRepository.ActualizarAsync(avion);
         }
+
+        public  async Task ActiveAsync(int id)
+        {
+            await _avionRepository.ActivarAsync(id);
+        }
+
+        public async Task DesActiveAsync(int id)
+        {
+            await _avionRepository.DesActivarAsync(id);
+        }
+
+        public async Task<IEnumerable<Avion>> ObtengaLaListaDeActivosAsync()
+        {
+            return await _avionRepository.ObtenerActivosAsync();
+        }
+
+        public async Task<IEnumerable<Avion>> ObtengaLaListaDeInActivosAsync()
+        {
+            return await _avionRepository.ObtenerInActivosAsync();
+        }
+
+        public async Task EliminarAsync(int id)
+        {
+            await _avionRepository.EliminarAsync(id);
+        }
     }
 }

@@ -17,5 +17,13 @@ namespace GestionAereolinea.BL
         Task AgregueAsync(Avion avion);
 
         Task EditeAsync(Avion avion);
+
+        Task ActiveAsync(int id);
+        Task DesActiveAsync(int id);
+
+        Task<IEnumerable<Avion>> ObtengaLaListaDeActivosAsync();
+        Task<IEnumerable<Avion>> ObtengaLaListaDeInActivosAsync();
+
+        Task EliminarAsync (int id);
     }
 }

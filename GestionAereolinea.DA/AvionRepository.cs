@@ -19,6 +19,18 @@ namespace GestionAereolinea.DA
         {
             _context = context;
         }
+
+        public async Task ActivarAsync(int id)
+        {
+            var avion = await ObtenerPorIdAsync(id);
+            if (avion != null)
+            {
+                avion.Estado = Estado.Activo;
+                _context.Aviones.Update(avion);
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task ActualizarAsync(Avion avion)
         {
             _context.Aviones.Update(avion);
@@ -29,6 +41,42 @@ namespace GestionAereolinea.DA
         {
             await _context.Aviones.AddAsync(avion);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task DesActivarAsync(int id)
+        {
+            var avion = await ObtenerPorIdAsync(id);
+            if (avion != null)
+            {
+                avion.Estado = Estado.InActivo;
+                _context.Aviones.Update(avion);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task EliminarAsync(int id)
+        {
+
+            var avion = await ObtenerPorIdAsync(id);
+            if (avion != null)
+            {
+                _context.Aviones.Remove(avion);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<Avion>> ObtenerActivosAsync()
+        {
+            return await _context.Aviones
+              .Where(a => a.Estado == Estado.Activo)
+              .ToListAsync();
+        }
+
+        public  async Task<IEnumerable<Avion>> ObtenerInActivosAsync()
+        {
+            return await _context.Aviones
+               .Where(a => a.Estado == Estado.InActivo)
+               .ToListAsync();
         }
 
         public async Task<IEnumerable<Avion>> ObtenerPorIdAsync()
@@ -45,5 +93,6 @@ namespace GestionAereolinea.DA
         {
             return await _context.Aviones.Include(a => a.Aerolinea).Where(a => a.Aerolinea.Nombre == nombreAerolinea).ToListAsync();
         }
+       
     }
 }

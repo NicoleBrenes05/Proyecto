@@ -1,22 +1,116 @@
+/* Tamaño base de fuente */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+/* Estilos de focus para botones y formularios */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Fondo del body y altura mínima */
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, #b4ced8);
 }
+
+/* Wrapper principal para sidebar + contenido */
+.wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar lateral */
+#sidebar-wrapper {
+    background-color: #084298; /* azul oscuro */
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* scroll si hay muchos links */
+    color: white;
+}
+
+    /* Título del sidebar */
+    #sidebar-wrapper .sidebar-heading {
+        font-size: 1.3rem;
+        font-weight: bold;
+        padding: 1rem;
+    }
+
+    /* Links del sidebar */
+    #sidebar-wrapper .list-group-item {
+        border: none;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+        color: white;
+        background-color: #0d6efd;
+        text-decoration: none;
+    }
+
+        #sidebar-wrapper .list-group-item:hover {
+            background-color: #b4ced8;
+            color: #084298; /* contraste para leer */
+        }
+
+/* Contenido principal */
+#page-content-wrapper {
+    flex: 1; /* ocupa espacio restante */
+    padding: 2rem;
+    background-color: #ffffff; /* color base si la imagen no carga */
+    background-image: url('https://i.pinimg.com/736x/02/c1/70/02c1705facb70b09797338a8a4cf59a2.jpg');
+    background-size: cover; /* la imagen cubre todo el div */
+    background-position: center; /* centrada */
+    background-repeat: no-repeat; /* no se repite */
+    overflow-y: auto;
+}
+
+
+/* Footer grande sobre el fondo del body */
+footer {
+    background-color: #258cfb; /* azul */
+    font-size: 1rem;
+    color: #fff;
+    width: 100%;
+    min-height: 70px; /* altura grande */
+    display: flex;
+    justify-content: center; /* centra el texto horizontal */
+    align-items: center; /* centra el texto vertical */
+}
+
+.titulo-sistema {
+    font-size: 2rem; /* tamaño del título */
+    font-weight: bold; /* negrita */
+    text-align: left; /* alineado a la izquierda */
+    color: #ffffff; /* negro */
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5); /* sombra principal */
+     /* sombra adicional para más profundidad */
+    opacity: 0; /* inicia invisible para animación */
+    animation: fadeIn 2s forwards;
+    font-family: 'Bell MT', sans-serif;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.table-responsive {
+    background-color: rgba(255,255,255,0.95);
+}
+

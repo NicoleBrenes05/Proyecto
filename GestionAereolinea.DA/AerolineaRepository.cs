@@ -32,6 +32,7 @@ namespace GestionAereolinea.DA
             await _context.SaveChangesAsync();
         }
 
+
         public async Task<IEnumerable<Aerolinea>> ObtenerAsync()
         {
             return await _context.Aerolineas
@@ -41,8 +42,10 @@ namespace GestionAereolinea.DA
 
         public async Task<IEnumerable<Avion>> ObtenerAvionesPorAerolineasAsync(string nombreAerolinea)
         {
-            return await _context.Aviones.Include(v => v.Aerolinea.Nombre == nombreAerolinea).ToListAsync();
+            return await _context.Aviones.Include(v => v.Aerolinea).Where(v => v.Aerolinea.Nombre == nombreAerolinea).ToListAsync();
         }
+
+ 
 
         public async Task<Aerolinea?> ObtenerPorIdAsync(int id)
         {

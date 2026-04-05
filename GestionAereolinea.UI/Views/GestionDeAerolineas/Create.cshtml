@@ -1,0 +1,61 @@
+﻿@model GestionAereolinea.Model.Aerolinea
+
+@{
+    ViewData["Title"] = "Registrar Aerolínea";
+}
+
+@if (@ViewData["ProblemasAlInsertar"] as bool? == true)
+{
+    <div class="alert alert-danger" role="alert">
+        Problemas al insertar la aerolínea
+    </div>
+}
+
+<h1 class="titulo-sistema mb-4">Registrar Aerolínea</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <!-- Nombre -->
+            <div class="form-group mb-3">
+                <label asp-for="Nombre" class="form-label"></label>
+                <input asp-for="Nombre" class="form-control" placeholder="Nombre de la aerolínea" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="form-group mb-3">
+                <label asp-for="Telefono" class="form-label"></label>
+                <input asp-for="Telefono" class="form-control" placeholder="Teléfono (8 dígitos)" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+
+            <!-- Código -->
+            <div class="form-group mb-3">
+                <label asp-for="Codigo" class="form-label"></label>
+                <input asp-for="Codigo" class="form-control" placeholder="Código de la aerolínea" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+
+            <!-- País de origen -->
+            <div class="form-group mb-3">
+                <label asp-for="PaísOrigen" class="form-label"></label>
+                <input asp-for="PaísOrigen" class="form-control" placeholder="País de origen" />
+                <span asp-validation-for="PaísOrigen" class="text-danger"></span>
+            </div>
+
+            <!-- Botones -->
+            <div class="form-group mt-3">
+                <input type="submit" value="Registrar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary ms-2">Volver</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
