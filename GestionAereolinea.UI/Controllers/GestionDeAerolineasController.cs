@@ -12,7 +12,7 @@ public class GestionDeAerolineasController : Controller
         _httpClientFactory = httpClientFactory;
     }
 
-    // 📄 LISTAR
+   
     public async Task<IActionResult> Index()
     {
         var client = _httpClientFactory.CreateClient("AerolineaApi");
@@ -38,13 +38,13 @@ public class GestionDeAerolineasController : Controller
         return View(lista);
     }
 
-    // ➕ CREAR (GET)
+  
     public IActionResult Create()
     {
         return View();
     }
 
-    // ➕ CREAR (POST)
+   
     [HttpPost]
     public async Task<IActionResult> Create(Aerolinea aerolinea)
     {
@@ -61,7 +61,6 @@ public class GestionDeAerolineasController : Controller
         return RedirectToAction("Index");
     }
 
-    // ✏️ EDITAR (GET)
     public async Task<IActionResult> Edit(int id)
     {
         var client = _httpClientFactory.CreateClient("AerolineaApi");
@@ -87,14 +86,14 @@ public class GestionDeAerolineasController : Controller
         return View(aerolinea);
     }
 
-    // ✏️ EDITAR (POST)
+    
     [HttpPost]
     public async Task<IActionResult> Edit(Aerolinea aerolinea)
     {
         var client = _httpClientFactory.CreateClient("AerolineaApi");
 
-        // 🔹 Incluir el ID en la ruta si la API lo requiere
-        var response = await client.PutAsJsonAsync($"api/ServicioDeAerolinea/{aerolinea.Id}", aerolinea);
+       
+        var response = await client.PutAsJsonAsync($"api/ServicioDeAerolinea", aerolinea);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -103,5 +102,30 @@ public class GestionDeAerolineasController : Controller
         }
 
         return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> Details(int id)
+    {
+        var client = _httpClientFactory.CreateClient("AerolineaApi");
+
+        var response = await client.GetAsync($"api/ServicioDeAerolinea/{id}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            return Content($"Error al obtener detalles. Status: {response.StatusCode}, Mensaje: {error}");
+        }
+
+        var json = await response.Content.ReadAsStringAsync();
+
+        if (string.IsNullOrEmpty(json))
+        {
+            return Content("La API devolvió vacío");
+        }
+
+        var aerolinea = JsonSerializer.Deserialize<Aerolinea>(json,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+        return View(aerolinea);
     }
 }

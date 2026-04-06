@@ -1,23 +1,38 @@
 ﻿using GestionAereolinea.BL;
 using GestionAereolinea.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GestionAereolinea.DA
 {
     public class AvionRepository : IAvionRepository
     {
-
         private readonly DBContexto _context;
 
-        public AvionRepository(DBContexto
-            context)
+        public AvionRepository(DBContexto context)
         {
             _context = context;
+        }
+
+        public async Task AgregarAsync(Avion avion)
+        {
+            await _context.Aviones.AddAsync(avion);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ActualizarAsync(Avion avion)
+        {
+            _context.Aviones.Update(avion);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task EliminarAsync(int id)
+        {
+            var avion = await ObtenerPorIdAsync(id);
+            if (avion != null)
+            {
+                _context.Aviones.Remove(avion);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task ActivarAsync(int id)
@@ -31,18 +46,6 @@ namespace GestionAereolinea.DA
             }
         }
 
-        public async Task ActualizarAsync(Avion avion)
-        {
-            _context.Aviones.Update(avion);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task AgregarAsync(Avion avion)
-        {
-            await _context.Aviones.AddAsync(avion);
-            await _context.SaveChangesAsync();
-        }
-
         public async Task DesActivarAsync(int id)
         {
             var avion = await ObtenerPorIdAsync(id);
@@ -54,45 +57,42 @@ namespace GestionAereolinea.DA
             }
         }
 
-        public async Task EliminarAsync(int id)
+        public async Task<IEnumerable<Avion>> ObtenerTodosAsync()
         {
-
-            var avion = await ObtenerPorIdAsync(id);
-            if (avion != null)
-            {
-                _context.Aviones.Remove(avion);
-                await _context.SaveChangesAsync();
-            }
+            return await _context.Aviones
+                .Include(a => a.Aerolinea)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Avion>> ObtenerActivosAsync()
         {
             return await _context.Aviones
-              .Where(a => a.Estado == Estado.Activo)
-              .ToListAsync();
+                .Include(a => a.Aerolinea)
+                .Where(a => a.Estado == Estado.Activo)
+                .ToListAsync();
         }
 
-        public  async Task<IEnumerable<Avion>> ObtenerInActivosAsync()
+        public async Task<IEnumerable<Avion>> ObtenerInActivosAsync()
         {
             return await _context.Aviones
-               .Where(a => a.Estado == Estado.InActivo)
-               .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Avion>> ObtenerPorIdAsync()
-        {
-            return await _context.Aviones.ToListAsync();
+                .Include(a => a.Aerolinea)
+                .Where(a => a.Estado == Estado.InActivo)
+                .ToListAsync();
         }
 
         public async Task<Avion?> ObtenerPorIdAsync(int id)
         {
-            return await _context.Aviones.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Aviones
+                .Include(a => a.Aerolinea)
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<IEnumerable<Avion>> ObtenerPorNombreDeAerolineaAsync(string nombreAerolinea)
         {
-            return await _context.Aviones.Include(a => a.Aerolinea).Where(a => a.Aerolinea.Nombre == nombreAerolinea).ToListAsync();
+            return await _context.Aviones
+                .Include(a => a.Aerolinea)
+                .Where(a => a.Aerolinea.Nombre == nombreAerolinea)
+                .ToListAsync();
         }
-       
     }
 }

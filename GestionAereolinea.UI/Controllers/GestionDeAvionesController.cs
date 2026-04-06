@@ -18,6 +18,12 @@ public class GestionDeAvionesController : Controller
 
         var response = await client.GetAsync("api/ServicioDeAviones");
 
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            return Content($"Error: {error}");
+        }
+
         var json = await response.Content.ReadAsStringAsync();
 
         var lista = JsonSerializer.Deserialize<List<Avion>>(json,
@@ -25,7 +31,6 @@ public class GestionDeAvionesController : Controller
 
         return View(lista);
     }
-
     public IActionResult Create()
     {
         return View();
@@ -64,5 +69,31 @@ public class GestionDeAvionesController : Controller
         await client.PutAsJsonAsync("api/ServicioDeAviones", avion);
 
         return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> Details(int id)
+    {
+        var client = _httpClientFactory.CreateClient("AerolineaApi");
+
+        var response = await client.GetAsync($"api/ServicioDeAviones/{id}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            return Content($"Error al obtener detalles. Status: {response.StatusCode}, Mensaje: {error}");
+        }
+
+        var json = await response.Content.ReadAsStringAsync();
+
+        if (string.IsNullOrEmpty(json))
+        {
+            return Content("La API devolvió vacío");
+        }
+
+       
+        var avion = JsonSerializer.Deserialize<Avion>(json,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+        return View(avion);
     }
 }

@@ -1,18 +1,19 @@
-﻿@model GestionAereolinea.Model.Aerolinea
+﻿@model GestionAereolinea.Model.Avion
 
 @{
-    ViewData["Title"] = "Registrar Aerolínea";
+    ViewData["Title"] = "Registrar Avión";
 }
 
-@if (@ViewData["ProblemasAlInsertar"] as bool? == true)
+@if (ViewData["ProblemasAlInsertar"] as bool? == true)
 {
     <div class="alert alert-danger" role="alert">
-        Problemas al insertar la aerolínea
+        Problemas al insertar el avión
     </div>
 }
+
 <div class="container text-center mt-4">
 
-    <h1 class="titulo-sistema mb-4">Registrar Aerolínea</h1>
+    <h1 class="titulo-sistema mb-4">Registrar Avión</h1>
     <hr />
 
     <div class="container mt-5">
@@ -21,33 +22,43 @@
             <div class="card shadow" style="max-width: 600px; border-radius: 15px; overflow: hidden; min-height: 30vh;">
                 <div class="row g-0">
 
-                  
+                    <!-- 📸 Imagen -->
                     <div class="col-md-6">
                         <img src="https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                              class="img-fluid h-100"
                              style="object-fit: cover;" />
                     </div>
 
-                  
+                    <!-- 🧾 Formulario -->
                     <div class="col-md-6">
                         <div class="card-body p-4">
-                            <h4 class="text-center mb-3">Registrar Aerolínea</h4>
+                            <h4 class="text-center mb-3">Registrar Avión</h4>
 
                             <form asp-action="Create">
+
                                 <div class="mb-3">
-                                    <input asp-for="Nombre" class="form-control" placeholder="Nombre">
+                                    <input asp-for="Nombre" class="form-control" placeholder="Nombre del avión">
                                 </div>
 
                                 <div class="mb-3">
-                                    <input asp-for="Telefono" class="form-control" placeholder="Teléfono">
+                                    <input asp-for="Modelo" class="form-control" placeholder="Modelo">
                                 </div>
 
                                 <div class="mb-3">
-                                    <input asp-for="Codigo" class="form-control" placeholder="Código">
+                                    <input asp-for="Capacidad" class="form-control" placeholder="Capacidad">
                                 </div>
 
+                                <!-- 🔥 Aerolínea (ID) -->
                                 <div class="mb-3">
-                                    <input asp-for="PaísOrigen" class="form-control" placeholder="País de origen">
+                                    <input asp-for="AerolineaId" class="form-control" placeholder="ID de Aerolínea">
+                                </div>
+
+                                <!-- 🔥 Estado -->
+                                <div class="mb-3">
+                                    <select asp-for="Estado" class="form-control">
+                                        <option value="1">Activo</option>
+                                        <option value="0">Inactivo</option>
+                                    </select>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary w-100">
@@ -62,6 +73,8 @@
 
         </div>
     </div>
+</div>
+
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

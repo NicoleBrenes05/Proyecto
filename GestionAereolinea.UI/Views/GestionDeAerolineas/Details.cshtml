@@ -1,5 +1,100 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model GestionAereolinea.Model.Aerolinea
+
 @{
+    ViewData["Title"] = "Detalle Aerolínea";
 }
+
+<div class="container text-center mt-4">
+
+    <h1 class="titulo-sistema mb-4">Detalle Aerolínea</h1>
+    <hr />
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center">
+
+            <div class="card shadow" style="max-width: 800px; border-radius: 15px; overflow: hidden; min-height: 40vh;">
+                <div class="row g-0">
+
+                  
+                    <div class="col-md-5">
+                        <img src="https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?q=80&w=764&auto=format&fit=crop"
+                             class="img-fluid h-100"
+                             style="object-fit: cover;" />
+                    </div>
+
+                
+                    <div class="col-md-7 d-flex">
+                        <div class="card-body p-4 d-flex flex-column justify-content-center w-100">
+
+                            <h4 class="text-center mb-3">Información</h4>
+
+                            <dl class="row text-start">
+
+                                <dt class="col-5">Id</dt>
+                                <dd class="col-7">@Model.Id</dd>
+
+                                <dt class="col-5">Nombre</dt>
+                                <dd class="col-7">@Model.Nombre</dd>
+
+                                <dt class="col-5">Teléfono</dt>
+                                <dd class="col-7">@Model.Telefono</dd>
+
+                                <dt class="col-5">Código</dt>
+                                <dd class="col-7">@Model.Codigo</dd>
+
+                                <dt class="col-5">País</dt>
+                                <dd class="col-7">@Model.PaísOrigen</dd>
+
+                            </dl>
+
+                            @if (Model.Aviones != null && Model.Aviones.Any())
+                            {
+                                <h5 class="mt-3">Aviones</h5>
+
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered mt-2">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Modelo</th>
+                                                <th>Capacidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var avion in Model.Aviones)
+                                            {
+                                                <tr>
+                                                    <td>@avion.Nombre</td>
+                                                    <td>@avion.Modelo</td>
+                                                    <td>@avion.Capacidad</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted mt-3">No hay aviones registrados</p>
+                            }
+
+                            <!-- Botones -->
+                            <div class="mt-3 text-center">
+                                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                                    Editar
+                                </a>
+
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    Volver
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+﻿@model GestionAereolinea.Model.Avion
+
+@{
+    ViewData["Title"] = "Detalle del Avión";
+}
+
+<div class="container text-center mt-4">
+    <h1 class="titulo-sistema mb-4">Detalle del Avión</h1>
+    <hr />
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center">
+            <div class="card shadow" style="max-width: 600px; border-radius: 15px; overflow: hidden; min-height: 30vh;">
+                <div class="row g-0">
+
+                    <!-- 📸 Imagen -->
+                    <div class="col-md-6">
+                        <img src="https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                             class="img-fluid h-100"
+                             style="object-fit: cover;" />
+                    </div>
+
+                    <!-- 🧾 Detalles -->
+                    <div class="col-md-6">
+                        <div class="card-body p-4">
+                            <h4 class="text-center mb-3">Información del Avión</h4>
+
+                            <div class="mb-3 text-start">
+                                <strong>Nombre:</strong> @Model.Nombre
+                            </div>
+
+                            <div class="mb-3 text-start">
+                                <strong>Modelo:</strong> @Model.Modelo
+                            </div>
+
+                            <div class="mb-3 text-start">
+                                <strong>Capacidad:</strong> @Model.Capacidad
+                            </div>
+
+                            <div class="mb-3 text-start">
+                                <strong>Aerolinea:</strong> @Model.Aerolinea.Nombre
+                            </div>
+
+                            <div class="mb-3 text-start">
+                                <strong>Estado:</strong> @Model.Estado.ToString()
+                            </div>
+
+                            <div class="d-flex justify-content-center mt-4">
+                                <a asp-action="Index" class="btn btn-secondary w-50">Volver</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

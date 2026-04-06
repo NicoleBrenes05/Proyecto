@@ -9,7 +9,7 @@ namespace GestionAereolinea.BL
 {
     public interface IAvionRepository
     {
-        Task<IEnumerable<Avion>> ObtenerPorIdAsync();
+        Task<IEnumerable<Avion>> ObtenerTodosAsync();
         Task<Avion?> ObtenerPorIdAsync(int id);
 
         Task<IEnumerable<Avion>> ObtenerPorNombreDeAerolineaAsync(string nombreAerolinea);

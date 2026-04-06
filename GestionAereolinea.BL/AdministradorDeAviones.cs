@@ -16,7 +16,7 @@ namespace GestionAereolinea.BL
         }
         public async Task<IEnumerable<Avion>> ObtengaListaAsync()
         {
-            return await _avionRepository.ObtenerPorIdAsync();
+            return await _avionRepository.ObtenerTodosAsync();
         }
 
         public async Task<Avion?> ObtengaAsync(int id)

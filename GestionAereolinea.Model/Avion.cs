@@ -24,7 +24,6 @@ namespace GestionAereolinea.Model
         [ForeignKey("Aerolinea")]
         public int AerolineaId { get; set; }
 
-        [JsonIgnore]
         public Aerolinea? Aerolinea { get; set; }
        
         public Estado Estado { get; set; }

@@ -1,0 +1,63 @@
+﻿@using GestionAereolinea.Model
+@model IEnumerable<GestionAereolinea.Model.Avion>
+
+@{
+    ViewData["Title"] = "Lista de Aviones";
+}
+
+
+<h1 class="titulo-sistema mb-4">Administración de Aviones</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Registrar Avión</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered bg-white" style="opacity: 0.95;">
+        <thead class="table-primary">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                <th>@Html.DisplayNameFor(model => model.Modelo)</th>
+                <th>@Html.DisplayNameFor(model => model.Capacidad)</th>
+                <th>Aerolínea</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Modelo</td>
+                    <td>@item.Capacidad</td>
+
+                    <td>
+                        @(item.Aerolinea != null ? item.Aerolinea.Nombre : "Sin asignar")
+                    </td>
+
+                  
+                    <td>
+                        @if (item.Estado == Estado.Activo)
+                        {
+                            <span class="badge bg-success">Activo</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Inactivo</span>
+                        }
+                    </td>
+
+                   
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm me-1" }) |
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm me-1" }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
