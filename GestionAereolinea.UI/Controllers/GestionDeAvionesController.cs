@@ -12,7 +12,8 @@ public class GestionDeAvionesController : Controller
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task<IActionResult> Index()
+    // Index con búsqueda por nombre de aerolínea
+    public async Task<IActionResult> Index(string nombreAerolinea)
     {
         var client = _httpClientFactory.CreateClient("AerolineaApi");
 
@@ -27,15 +28,25 @@ public class GestionDeAvionesController : Controller
         var json = await response.Content.ReadAsStringAsync();
 
         var lista = JsonSerializer.Deserialize<List<Avion>>(json,
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<Avion>();
+
+        // Filtrar por nombre de aerolínea si se ingresó algo
+        if (!string.IsNullOrEmpty(nombreAerolinea))
+        {
+            lista = lista.Where(x =>
+                x.Aerolinea != null &&
+                x.Aerolinea.Nombre.Contains(nombreAerolinea, StringComparison.OrdinalIgnoreCase)
+            ).ToList();
+        }
 
         return View(lista);
     }
+
+    // Crear avión
     public IActionResult Create()
     {
         return View();
     }
-
 
     [HttpPost]
     public async Task<IActionResult> Create(Avion avion)
@@ -47,6 +58,7 @@ public class GestionDeAvionesController : Controller
         return RedirectToAction("Index");
     }
 
+    // Editar avión
     public async Task<IActionResult> Edit(int id)
     {
         var client = _httpClientFactory.CreateClient("AerolineaApi");
@@ -71,6 +83,7 @@ public class GestionDeAvionesController : Controller
         return RedirectToAction("Index");
     }
 
+    // Detalles de un avión
     public async Task<IActionResult> Details(int id)
     {
         var client = _httpClientFactory.CreateClient("AerolineaApi");
@@ -90,7 +103,6 @@ public class GestionDeAvionesController : Controller
             return Content("La API devolvió vacío");
         }
 
-       
         var avion = JsonSerializer.Deserialize<Avion>(json,
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 

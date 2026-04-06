@@ -14,24 +14,23 @@
 
     <div class="wrapper d-flex flex-column min-vh-100">
 
-        <!-- Sidebar + contenido -->
+        
         <div class="d-flex flex-grow-1">
 
-            <!-- Sidebar lateral -->
+         
             <div id="sidebar-wrapper" class="d-flex flex-column">
                 <div class="sidebar-heading text-center py-4 fw-bold">Gestión Aérea</div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Inicio</a>
                     <a class="list-group-item list-group-item-action" asp-controller="GestionDeAerolineas" asp-action="Index">Aerolíneas</a>
                     <a class="list-group-item list-group-item-action" asp-controller="GestionDeAviones" asp-action="Index">Aviones</a>
-                    <a class="list-group-item list-group-item-action" asp-controller="GestionDeAviones" asp-action="Index">Aviones Activos</a>
-                    <a class="list-group-item list-group-item-action" asp-controller="GestionDeAviones" asp-action="Index">Aviones Inactivos</a>
+                    <a class="list-group-item list-group-item-action" asp-controller="GestionDeAvionesActivos" asp-action="Index">Aviones Activos</a>
+                    <a class="list-group-item list-group-item-action" asp-controller="GestionDeAvionesInactivos" asp-action="Index">Aviones Inactivos</a>
                    
 
                 </div>
             </div>
 
-            <!-- Contenido principal -->
             <div id="page-content-wrapper" class="flex-grow-1">
                 <main role="main" class="p-4">
                     @RenderBody()
@@ -40,14 +39,13 @@
 
         </div>
 
-        <!-- Footer sobre fondo del body -->
         <footer class="text-center">
             &copy; 2026 - Sistema de Gestión Aérea
         </footer>
 
     </div>
 
-    <!-- Scripts -->
+   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

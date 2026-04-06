@@ -1,5 +1,50 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using GestionAereolinea.Model
+@model IEnumerable<GestionAereolinea.Model.Avion>
+
 @{
+    ViewData["Title"] = "Lista de Aviones Activos";
 }
+
+<h1 class="titulo-sistema mb-4">Administración de Aviones Activos</h1>
+
+
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered bg-white" style="opacity: 0.95;">
+        <thead class="table-primary">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                <th>@Html.DisplayNameFor(model => model.Modelo)</th>
+                <th>@Html.DisplayNameFor(model => model.Capacidad)</th>
+                <th>Aerolínea</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Where(a => a.Estado == Estado.Activo))
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Modelo</td>
+                    <td>@item.Capacidad</td>
+
+                    <td>
+                        @(item.Aerolinea != null ? item.Aerolinea.Nombre : "Sin asignar")
+                    </td>
+
+                    <td>
+                        <span class="badge bg-success">Activo</span>
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm me-1" }) 
+                      
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

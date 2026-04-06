@@ -3,129 +3,137 @@ using GestionAereolinea.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
-public class GestionDeAerolineasController : Controller
+namespace GestionAereolinea.UI.Controllers
 {
-    private readonly IHttpClientFactory _httpClientFactory;
-
-    public GestionDeAerolineasController(IHttpClientFactory httpClientFactory)
+    public class GestionDeAerolineasController : Controller
     {
-        _httpClientFactory = httpClientFactory;
-    }
+        private readonly IHttpClientFactory _httpClientFactory;
 
-   
-    public async Task<IActionResult> Index()
-    {
-        var client = _httpClientFactory.CreateClient("AerolineaApi");
-
-        var response = await client.GetAsync("api/ServicioDeAerolinea");
-
-        if (!response.IsSuccessStatusCode)
+        public GestionDeAerolineasController(IHttpClientFactory httpClientFactory)
         {
-            var error = await response.Content.ReadAsStringAsync();
-            return Content($"Error al llamar a la API. Status: {response.StatusCode}, Mensaje: {error}");
+            _httpClientFactory = httpClientFactory;
         }
 
-        var json = await response.Content.ReadAsStringAsync();
-
-        if (string.IsNullOrEmpty(json))
+        // Listar y filtrar aerolíneas
+        public async Task<IActionResult> Index(string busqueda)
         {
-            return Content("La API devolvió vacío");
+            var client = _httpClientFactory.CreateClient("AerolineaApi");
+
+            var response = await client.GetAsync("api/ServicioDeAerolinea");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                return Content($"Error al llamar a la API. Status: {response.StatusCode}, Mensaje: {error}");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrEmpty(json))
+                return Content("La API devolvió vacío");
+
+            var lista = JsonSerializer.Deserialize<List<Aerolinea>>(json,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<Aerolinea>();
+
+            // Filtrado por Id, Nombre o Teléfono
+            if (!string.IsNullOrEmpty(busqueda))
+            {
+                lista = lista.Where(x =>
+                    x.Id.ToString().Contains(busqueda) ||
+                    x.Nombre.Contains(busqueda, StringComparison.OrdinalIgnoreCase) ||
+                    x.Telefono.Contains(busqueda, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+            }
+
+            return View(lista);
         }
 
-        var lista = JsonSerializer.Deserialize<List<Aerolinea>>(json,
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-        return View(lista);
-    }
-
-  
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-   
-    [HttpPost]
-    public async Task<IActionResult> Create(Aerolinea aerolinea)
-    {
-        var client = _httpClientFactory.CreateClient("AerolineaApi");
-
-        var response = await client.PostAsJsonAsync("api/ServicioDeAerolinea", aerolinea);
-
-        if (!response.IsSuccessStatusCode)
+        // Crear aerolínea (GET)
+        public IActionResult Create()
         {
-            var error = await response.Content.ReadAsStringAsync();
-            return Content($"Error al crear la aerolínea. Status: {response.StatusCode}, Mensaje: {error}");
+            return View();
         }
 
-        return RedirectToAction("Index");
-    }
-
-    public async Task<IActionResult> Edit(int id)
-    {
-        var client = _httpClientFactory.CreateClient("AerolineaApi");
-
-        var response = await client.GetAsync($"api/ServicioDeAerolinea/{id}");
-
-        if (!response.IsSuccessStatusCode)
+        // Crear aerolínea (POST)
+        [HttpPost]
+        public async Task<IActionResult> Create(Aerolinea aerolinea)
         {
-            var error = await response.Content.ReadAsStringAsync();
-            return Content($"Error al obtener la aerolínea. Status: {response.StatusCode}, Mensaje: {error}");
+            var client = _httpClientFactory.CreateClient("AerolineaApi");
+
+            var response = await client.PostAsJsonAsync("api/ServicioDeAerolinea", aerolinea);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                return Content($"Error al crear la aerolínea. Status: {response.StatusCode}, Mensaje: {error}");
+            }
+
+            return RedirectToAction("Index");
         }
 
-        var json = await response.Content.ReadAsStringAsync();
-
-        if (string.IsNullOrEmpty(json))
+        // Editar aerolínea (GET)
+        public async Task<IActionResult> Edit(int id)
         {
-            return Content("La API devolvió vacío");
+            var client = _httpClientFactory.CreateClient("AerolineaApi");
+
+            var response = await client.GetAsync($"api/ServicioDeAerolinea/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                return Content($"Error al obtener la aerolínea. Status: {response.StatusCode}, Mensaje: {error}");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrEmpty(json))
+                return Content("La API devolvió vacío");
+
+            var aerolinea = JsonSerializer.Deserialize<Aerolinea>(json,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            return View(aerolinea);
         }
 
-        var aerolinea = JsonSerializer.Deserialize<Aerolinea>(json,
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-        return View(aerolinea);
-    }
-
-    
-    [HttpPost]
-    public async Task<IActionResult> Edit(Aerolinea aerolinea)
-    {
-        var client = _httpClientFactory.CreateClient("AerolineaApi");
-
-       
-        var response = await client.PutAsJsonAsync($"api/ServicioDeAerolinea", aerolinea);
-
-        if (!response.IsSuccessStatusCode)
+        // Editar aerolínea (POST)
+        [HttpPost]
+        public async Task<IActionResult> Edit(Aerolinea aerolinea)
         {
-            var error = await response.Content.ReadAsStringAsync();
-            return Content($"Error al editar la aerolínea. Status: {response.StatusCode}, Mensaje: {error}");
+            var client = _httpClientFactory.CreateClient("AerolineaApi");
+
+            var response = await client.PutAsJsonAsync($"api/ServicioDeAerolinea", aerolinea);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                return Content($"Error al editar la aerolínea. Status: {response.StatusCode}, Mensaje: {error}");
+            }
+
+            return RedirectToAction("Index");
         }
 
-        return RedirectToAction("Index");
-    }
-
-    public async Task<IActionResult> Details(int id)
-    {
-        var client = _httpClientFactory.CreateClient("AerolineaApi");
-
-        var response = await client.GetAsync($"api/ServicioDeAerolinea/{id}");
-
-        if (!response.IsSuccessStatusCode)
+        // Detalles de aerolínea
+        public async Task<IActionResult> Details(int id)
         {
-            var error = await response.Content.ReadAsStringAsync();
-            return Content($"Error al obtener detalles. Status: {response.StatusCode}, Mensaje: {error}");
+            var client = _httpClientFactory.CreateClient("AerolineaApi");
+
+            var response = await client.GetAsync($"api/ServicioDeAerolinea/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                return Content($"Error al obtener detalles. Status: {response.StatusCode}, Mensaje: {error}");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrEmpty(json))
+                return Content("La API devolvió vacío");
+
+            var aerolinea = JsonSerializer.Deserialize<Aerolinea>(json,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            return View(aerolinea);
         }
-
-        var json = await response.Content.ReadAsStringAsync();
-
-        if (string.IsNullOrEmpty(json))
-        {
-            return Content("La API devolvió vacío");
-        }
-
-        var aerolinea = JsonSerializer.Deserialize<Aerolinea>(json,
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-        return View(aerolinea);
     }
 }

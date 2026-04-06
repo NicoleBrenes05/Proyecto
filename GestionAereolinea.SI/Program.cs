@@ -1,7 +1,6 @@
 using GestionAereolinea.BL;
 using GestionAereolinea.DA;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);

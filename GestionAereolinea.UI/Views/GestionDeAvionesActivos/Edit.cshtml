@@ -1,5 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model GestionAereolinea.Model.Avion
+
 @{
+    ViewData["Title"] = "Cambiar Estado del Avión";
+}
+
+@if (ViewData["ProblemasAlInsertar"] as bool? == true)
+{
+    <div class="alert alert-danger" role="alert">
+        Problemas al actualizar el estado del avión
+    </div>
+}
+
+<div class="container text-center mt-4">
+
+    <h1 class="titulo-sistema mb-4">Cambiar Estado del Avión</h1>
+    <hr />
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center">
+
+            <div class="card shadow" style="max-width: 400px; border-radius: 15px; overflow: hidden; min-height: 20vh;">
+                <div class="card-body p-4">
+                    <h4 class="text-center mb-3">Editar Estado</h4>
+
+                    <form asp-action="Edit">
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Estado Actual</label>
+                            <select asp-for="Estado" class="form-control">
+                                <option value="1" selected="@Model.Estado == Estado.Activo">Activo</option>
+                                <option value="2" selected="@Model.Estado == Estado.InActivo">Inactivo</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning w-100">
+                            Actualizar Estado
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }

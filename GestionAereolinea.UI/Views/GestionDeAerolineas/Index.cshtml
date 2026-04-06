@@ -6,11 +6,19 @@
 
 <h1 class="titulo-sistema mb-4">Administración de Aerolíneas</h1>
 
+<!-- Buscador único -->
+<form method="get" asp-action="Index" class="mb-4 d-flex">
+    <input type="text" name="busqueda"
+           value="@ViewContext.HttpContext.Request.Query["busqueda"]"
+           class="form-control form-control-sm me-2"
+           placeholder="Buscar por ID, Nombre o Teléfono"
+           style="max-width: 250px;" />
+    <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+</form>
 
 <p>
     <a asp-action="Create" class="btn btn-success">Registrar Aerolínea</a>
 </p>
-
 
 <div class="table-responsive">
     <table class="table table-hover table-bordered bg-white" style="opacity: 0.95;">
