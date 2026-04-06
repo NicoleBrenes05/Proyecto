@@ -1,5 +1,92 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model GestionAereolinea.Model.Avion
+
 @{
+    ViewData["Title"] = "Cambiar Estado del Avión";
+}
+
+@if (ViewData["ProblemasAlInsertar"] as bool? == true)
+{
+    <div class="alert alert-danger" role="alert">
+        Problemas al actualizar el estado del avión
+    </div>
+}
+
+<div class="container text-center mt-4">
+
+    <h1 class="titulo-sistema mb-4">Cambiar Estado del Avión</h1>
+    <hr />
+
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center">
+
+            <div class="card shadow" style="max-width: 600px; border-radius: 15px; overflow: hidden; min-height: 30vh;">
+                <div class="row g-0">
+
+
+                    <div class="col-md-6">
+                        <img src="https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?q=80&w=764&auto=format&fit=crop"
+                             class="img-fluid h-100"
+                             style="object-fit: cover;" />
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="card-body p-4">
+
+                            <h4 class="text-center mb-3">Activar Avión</h4>
+
+                            <div class="mb-2 text-start">
+                                <strong>Nombre:</strong>
+                                <p class="mb-1">@Model.Nombre</p>
+                            </div>
+
+                            <div class="mb-2 text-start">
+                                <strong>Modelo:</strong>
+                                <p class="mb-1">@Model.Modelo</p>
+                            </div>
+
+                            <div class="mb-2 text-start">
+                                <strong>Aerolínea:</strong>
+                                <p class="mb-1">
+                                    @(Model.Aerolinea != null ? Model.Aerolinea.Nombre : "Sin asignar")
+                                </p>
+                            </div>
+
+                            <div class="mb-3 text-start">
+                                <strong>Estado Actual:</strong><br />
+                                <span class="badge bg-danger">Inactivo</span>
+                            </div>
+
+
+                            <form asp-controller="GestionDeAvionesInactivos"
+                                  asp-action="Edit"
+                                  method="post">
+
+                                <input type="hidden" name="id" value="@Model.Id" />
+                                <input type="hidden" name="nuevoEstado" value="Activar" />
+
+                                <button type="submit" class="btn btn-success w-100">
+                                    Activar Avión
+                                </button>
+                            </form>
+
+
+                            <a asp-controller="GestionDeAvionesInactivos"
+                               asp-action="Index"
+                               class="btn btn-secondary w-100 mt-2">
+                                Cancelar
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }

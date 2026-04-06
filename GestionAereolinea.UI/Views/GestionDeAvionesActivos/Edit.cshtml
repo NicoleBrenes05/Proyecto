@@ -19,26 +19,67 @@
     <div class="container mt-5">
         <div class="d-flex justify-content-center">
 
-            <div class="card shadow" style="max-width: 400px; border-radius: 15px; overflow: hidden; min-height: 20vh;">
-                <div class="card-body p-4">
-                    <h4 class="text-center mb-3">Editar Estado</h4>
+            <div class="card shadow" style="max-width: 600px; border-radius: 15px; overflow: hidden; min-height: 30vh;">
+                <div class="row g-0">
 
-                    <form asp-action="Edit">
+                    <!-- IMAGEN -->
+                    <div class="col-md-6">
+                        <img src="https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?q=80&w=764&auto=format&fit=crop"
+                             class="img-fluid h-100"
+                             style="object-fit: cover;" />
+                    </div>
 
-                        <input type="hidden" asp-for="Id" />
+                    <!-- CONTENIDO -->
+                    <div class="col-md-6">
+                        <div class="card-body p-4">
 
-                        <div class="mb-3">
-                            <label class="form-label">Estado Actual</label>
-                            <select asp-for="Estado" class="form-control">
-                                <option value="1" selected="@Model.Estado == Estado.Activo">Activo</option>
-                                <option value="2" selected="@Model.Estado == Estado.InActivo">Inactivo</option>
-                            </select>
+                            <h4 class="text-center mb-3">Desactivar Avión</h4>
+
+                            <div class="mb-2 text-start">
+                                <strong>Nombre:</strong>
+                                <p class="mb-1">@Model.Nombre</p>
+                            </div>
+
+                            <div class="mb-2 text-start">
+                                <strong>Modelo:</strong>
+                                <p class="mb-1">@Model.Modelo</p>
+                            </div>
+
+                            <div class="mb-2 text-start">
+                                <strong>Aerolínea:</strong>
+                                <p class="mb-1">
+                                    @(Model.Aerolinea != null ? Model.Aerolinea.Nombre : "Sin asignar")
+                                </p>
+                            </div>
+
+                            <div class="mb-3 text-start">
+                                <strong>Estado Actual:</strong><br />
+                                <span class="badge bg-success">Activo</span>
+                            </div>
+
+
+                            <form asp-controller="GestionDeAvionesActivos"
+                                  asp-action="Edit"
+                                  method="post">
+
+                                <input type="hidden" name="id" value="@Model.Id" />
+                                <input type="hidden" name="nuevoEstado" value="Desactivar" />
+
+                                <button type="submit" class="btn btn-warning w-100">
+                                    Desactivar Avión
+                                </button>
+                            </form>
+
+
+                            <a asp-controller="GestionDeAvionesActivos"
+                               asp-action="Index"
+                               class="btn btn-secondary w-100 mt-2">
+                                Cancelar
+                            </a>
+
                         </div>
+                    </div>
 
-                        <button type="submit" class="btn btn-warning w-100">
-                            Actualizar Estado
-                        </button>
-                    </form>
                 </div>
             </div>
 

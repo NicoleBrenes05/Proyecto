@@ -147,5 +147,18 @@ namespace GestionAereolinea.UI
             var response = await client.PutAsync("api/ServicioDeAviones", content);
             response.EnsureSuccessStatusCode();
         }
+        public async Task ActivarAvionAsync(int id)
+        {
+            var client = _httpClientFactory.CreateClient("AerolineaApi");
+            var response = await client.PutAsync($"api/ServicioDeAviones/Activar/{id}", null);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DesactivarAvionAsync(int id)
+        {
+            var client = _httpClientFactory.CreateClient("AerolineaApi");
+            var response = await client.PutAsync($"api/ServicioDeAviones/Desactivar/{id}", null);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

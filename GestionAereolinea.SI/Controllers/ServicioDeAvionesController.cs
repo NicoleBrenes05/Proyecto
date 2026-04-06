@@ -96,6 +96,28 @@ namespace GestionAereolinea.API.Controllers
             return Ok("Avión eliminado correctamente");
         }
 
+        [HttpPut("Activar/{id}")]
+        public async Task<ActionResult> Activar(int id)
+        {
+            var avion = await _adminAviones.ObtengaAsync(id);
+            if (avion == null)
+                return NotFound();
+
+            await _adminAviones.ActiveAsync(id);
+            return Ok("Avion activado correctamente");
+        }
+
+        [HttpPut("Desactivar/{id}")]
+        public async Task<ActionResult> Desactivar(int id)
+        {
+            var avion = await _adminAviones.ObtengaAsync(id);
+            if (avion == null)
+                return NotFound();
+
+            await _adminAviones.DesActiveAsync(id);
+            return Ok("Avion desactivado correctamente");
+        }
+
 
     }
 }
