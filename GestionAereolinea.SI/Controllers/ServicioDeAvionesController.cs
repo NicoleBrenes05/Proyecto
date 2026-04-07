@@ -92,6 +92,11 @@ namespace GestionAereolinea.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Eliminar(int id)
         {
+            var avion = await _adminAviones.ObtengaAsync(id);
+
+            if (avion == null)
+                return NotFound("El Avion no existe");
+
             await _adminAviones.EliminarAsync(id);
             return Ok("Avión eliminado correctamente");
         }

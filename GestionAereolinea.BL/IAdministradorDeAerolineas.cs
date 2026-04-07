@@ -23,8 +23,8 @@ namespace GestionAereolinea.BL
 
         Task EditeAsync(Aerolinea aerolinea);
 
-      
+        Task ElimineAsync(Aerolinea aerolinea);
 
-        
+
     }
 }

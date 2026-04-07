@@ -108,4 +108,21 @@ public class GestionDeAvionesController : Controller
 
         return View(avion);
     }
+
+    // Eliminar avión
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        var client = _httpClientFactory.CreateClient("AerolineaApi");
+
+        var response = await client.DeleteAsync($"api/ServicioDeAviones/{id}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            return Content($"Error al eliminar: {error}");
+        }
+
+        return RedirectToAction("Index");
+    }
 }

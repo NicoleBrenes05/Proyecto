@@ -53,5 +53,10 @@ namespace GestionAereolinea.BL
         {
             return await _aerolineaRepository.ObtenerPorTelefonoAsync(telefono);
         }
+
+        public async Task ElimineAsync(Aerolinea aerolinea)
+        {
+            await _aerolineaRepository.EliminarAsync(aerolinea);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using GestionAereolinea.BL;
 using GestionAereolinea.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionAereolinea.SI.Controllers
 {
@@ -78,6 +79,17 @@ namespace GestionAereolinea.SI.Controllers
         {
             await _admin.EditeAsync(aerolinea);
             return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var aerolinea = await _admin.ObtengaAsync(id); // Usamos la BL para obtener
+            if (aerolinea == null)
+                return NotFound();
+
+            await _admin.ElimineAsync(aerolinea); // Usamos la BL para eliminar
+            return NoContent();
         }
     }
 }

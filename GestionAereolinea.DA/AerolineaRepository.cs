@@ -63,5 +63,11 @@ namespace GestionAereolinea.DA
         {
             return await _context.Aerolineas.FirstOrDefaultAsync(a => a.Telefono == telefono);
         }
+
+        public async Task EliminarAsync(Aerolinea aerolinea)
+        {
+            _context.Aerolineas.Remove(aerolinea);
+            await _context.SaveChangesAsync();
+        }
     }
 }
