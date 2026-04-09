@@ -17,6 +17,8 @@ public class GestionDeAvionesController : Controller
     {
         var client = _httpClientFactory.CreateClient("AerolineaApi");
 
+        
+
         var response = await client.GetAsync("api/ServicioDeAviones");
 
         if (!response.IsSuccessStatusCode)
