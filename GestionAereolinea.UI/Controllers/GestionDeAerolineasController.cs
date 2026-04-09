@@ -135,5 +135,24 @@ namespace GestionAereolinea.UI.Controllers
 
             return View(aerolinea);
         }
+
+        // eliminar aerolinea
+        
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var client = _httpClientFactory.CreateClient("AerolineaApi");
+
+            var response = await client.DeleteAsync($"api/ServicioDeAerolinea/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                return Content($"Error al eliminar la aerolínea. Status: {response.StatusCode}, Mensaje: {error}");
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
+

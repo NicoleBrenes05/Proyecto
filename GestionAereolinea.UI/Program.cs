@@ -5,16 +5,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// 🔹 Configuración del HttpClient
+// Configuración del HttpClient
 var apiConfig = builder.Configuration.GetSection("AerolineaApi");
 var urlBase = apiConfig.GetValue<string>("BaseUrl");
 
 builder.Services.AddHttpClient("AerolineaApi", client =>
 {
     client.BaseAddress = new Uri(urlBase);
+    client.DefaultRequestHeaders.Add("X-API-KEY", "123456");
 });
-
-// 🔹 Inyección del servicio
+// Inyección del servicio
 builder.Services.AddScoped<ServicioApi>();
 
 var app = builder.Build();
@@ -33,7 +33,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-// 🔹 Ruta por defecto
+// Ruta por defecto
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
