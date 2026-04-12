@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionAereolinea.SI", "GestionAereolinea.SI.csproj", "{33515C02-2639-4DDB-A356-762D953F5BED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionAereolinea.BL", "..\GestionAereolinea.BL\GestionAereolinea.BL.csproj", "{4568CFC6-A102-4AE4-9A10-B864EAFEA094}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionAereolinea.DA", "..\GestionAereolinea.DA\GestionAereolinea.DA.csproj", "{5A98A627-C413-40C3-AAD0-19DDC28D66C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionAereolinea.Model", "..\GestionAereolinea.Model\GestionAereolinea.Model.csproj", "{404278C3-BC71-4673-BF1F-898CB894EB63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionAereolinea.UI", "..\GestionAereolinea.UI\GestionAereolinea.UI.csproj", "{359CC634-7971-42D9-8F27-A46BF82438B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionDeAerolinea.BL.Tests", "..\GestionDeAerolinea.BL.Tests\GestionDeAerolinea.BL.Tests.csproj", "{B354D5AE-FEA9-4621-A71C-C9975ABA190A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33515C02-2639-4DDB-A356-762D953F5BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33515C02-2639-4DDB-A356-762D953F5BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33515C02-2639-4DDB-A356-762D953F5BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33515C02-2639-4DDB-A356-762D953F5BED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4568CFC6-A102-4AE4-9A10-B864EAFEA094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4568CFC6-A102-4AE4-9A10-B864EAFEA094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4568CFC6-A102-4AE4-9A10-B864EAFEA094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4568CFC6-A102-4AE4-9A10-B864EAFEA094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A98A627-C413-40C3-AAD0-19DDC28D66C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A98A627-C413-40C3-AAD0-19DDC28D66C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A98A627-C413-40C3-AAD0-19DDC28D66C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A98A627-C413-40C3-AAD0-19DDC28D66C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404278C3-BC71-4673-BF1F-898CB894EB63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404278C3-BC71-4673-BF1F-898CB894EB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404278C3-BC71-4673-BF1F-898CB894EB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404278C3-BC71-4673-BF1F-898CB894EB63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{359CC634-7971-42D9-8F27-A46BF82438B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{359CC634-7971-42D9-8F27-A46BF82438B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{359CC634-7971-42D9-8F27-A46BF82438B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{359CC634-7971-42D9-8F27-A46BF82438B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B354D5AE-FEA9-4621-A71C-C9975ABA190A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B354D5AE-FEA9-4621-A71C-C9975ABA190A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B354D5AE-FEA9-4621-A71C-C9975ABA190A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B354D5AE-FEA9-4621-A71C-C9975ABA190A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9044EB7A-936D-4909-BC0B-A3EE835D7EAF}
+	EndGlobalSection
+EndGlobal
