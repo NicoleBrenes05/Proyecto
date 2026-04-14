@@ -1,12 +1,156 @@
-﻿@{
-    ViewData["Title"] = "Prueba";
+﻿@* Se define el modelo que usará esta vista
+   HomeViewModel contiene los 4 totales que se muestran en las tarjetas *@
+@model GestionAereolinea.UI.Models.HomeViewModel
+@{
+    // Título que aparece en la pestaña del navegador
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h4 class="titulo-sistema"> 
-
-    </h4>
-  
-  
-   
+@* Banner principal: imagen de fondo con texto encima *@
+<div class="banner-inicio mb-4">
+    @* banner-overlay es una capa semitransparente azul que hace legible el texto blanco *@
+    <div class="banner-overlay d-flex flex-column justify-content-center align-items-center text-white text-center">
+        <h1 class="display-5 fw-bold">✈️ Sistema de Gestión Aérea</h1>
+        <p class="lead">Administra aerolíneas, aviones y su estado desde un solo lugar</p>
+    </div>
 </div>
+
+@* Sección de tarjetas con los totales del sistema *@
+<h5 class="mb-3 fw-semibold">📊 Resumen del sistema</h5>
+<div class="row g-4">
+
+    @* Tarjeta 1: Total de aerolíneas *@
+    <div class="col-md-3">
+        <div class="card tarjeta-resumen text-center shadow-sm border-0">
+            <div class="card-body py-4">
+                <div class="icono-tarjeta mb-2">🏢</div>
+                @* @Model.TotalAerolineas viene del HomeViewModel enviado por el HomeController *@
+                <h2 class="fw-bold text-primary">@Model.TotalAerolineas</h2>
+                <p class="text-muted mb-0">Aerolíneas registradas</p>
+            </div>
+        </div>
+    </div>
+
+    @* Tarjeta 2: Total de aviones *@
+    <div class="col-md-3">
+        <div class="card tarjeta-resumen text-center shadow-sm border-0">
+            <div class="card-body py-4">
+                <div class="icono-tarjeta mb-2">🛩️</div>
+                <h2 class="fw-bold text-primary">@Model.TotalAviones</h2>
+                <p class="text-muted mb-0">Aviones en el sistema</p>
+            </div>
+        </div>
+    </div>
+
+    @* Tarjeta 3: Aviones activos — borde verde para diferenciarlo visualmente *@
+    <div class="col-md-3">
+        <div class="card tarjeta-resumen text-center shadow-sm border-0 border-top border-success border-3">
+            <div class="card-body py-4">
+                <div class="icono-tarjeta mb-2">✅</div>
+                <h2 class="fw-bold text-success">@Model.TotalAvionesActivos</h2>
+                <p class="text-muted mb-0">Aviones activos</p>
+            </div>
+        </div>
+    </div>
+
+    @* Tarjeta 4: Aviones inactivos — borde rojo para diferenciarlo visualmente *@
+    <div class="col-md-3">
+        <div class="card tarjeta-resumen text-center shadow-sm border-0 border-top border-danger border-3">
+            <div class="card-body py-4">
+                <div class="icono-tarjeta mb-2">🚫</div>
+                <h2 class="fw-bold text-danger">@Model.TotalAvionesInactivos</h2>
+                <p class="text-muted mb-0">Aviones inactivos</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Sección informativa: 3 tarjetas con imagen y texto explicando las funciones del sistema *@
+<div class="row g-4 mt-3">
+
+    @* Tarjeta informativa 1: Aerolíneas *@
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100" style="border-radius: 14px; overflow: hidden;">
+            @* Imagen decorativa obtenida de Unsplash (servicio gratuito de imágenes) *@
+            <img src="https://images.unsplash.com/photo-1542296332-2e4473faf563?w=600"
+                 class="card-img-top" style="height: 180px; object-fit: cover;" />
+            <div class="card-body">
+                <h5 class="fw-bold">Gestión de Aerolíneas</h5>
+                <p class="text-muted" style="font-size: 0.9rem;">
+                    Registra y administra todas las aerolíneas del sistema. Mantén actualizada
+                    la información de cada compañía, su código, país de origen y los aviones
+                    que forman parte de su flota.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    @* Tarjeta informativa 2: Aviones *@
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100" style="border-radius: 14px; overflow: hidden;">
+            <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=600"
+                 class="card-img-top" style="height: 180px; object-fit: cover;" />
+            <div class="card-body">
+                <h5 class="fw-bold">Control de Flota</h5>
+                <p class="text-muted" style="font-size: 0.9rem;">
+                    Lleva un control completo de cada avión registrado en el sistema.
+                    Consulta su modelo, capacidad y la aerolínea a la que pertenece,
+                    todo desde un solo lugar.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    @* Tarjeta informativa 3: Estado de aviones *@
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100" style="border-radius: 14px; overflow: hidden;">
+            <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=600"
+                 class="card-img-top" style="height: 180px; object-fit: cover;" />
+            <div class="card-body">
+                <h5 class="fw-bold">Estado de Aviones</h5>
+                <p class="text-muted" style="font-size: 0.9rem;">
+                    Monitorea en tiempo real cuáles aviones están en servicio activo
+                    y cuáles se encuentran inactivos. Activa o desactiva aviones
+                    según las necesidades operativas de cada aerolínea.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Estilos CSS específicos para esta vista *@
+<style>
+    /* Contenedor del banner con imagen de fondo de un avión */
+    .banner-inicio {
+        background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200');
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
+        height: 260px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* Capa semitransparente que oscurece la imagen para que el texto sea legible */
+    .banner-overlay {
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 60, 120, 0.60);
+    }
+
+    /* Estilo base de las tarjetas del resumen */
+    .tarjeta-resumen {
+        border-radius: 12px;
+        transition: transform 0.2s; /* Animación suave al pasar el cursor */
+    }
+
+    /* Efecto al pasar el cursor: la tarjeta sube ligeramente */
+    .tarjeta-resumen:hover {
+        transform: translateY(-4px);
+    }
+
+    /* Tamaño de los emojis usados como íconos en las tarjetas */
+    .icono-tarjeta {
+        font-size: 2rem;
+    }
+</style>

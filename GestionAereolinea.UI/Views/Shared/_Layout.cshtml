@@ -1,55 +1,81 @@
-﻿<!DOCTYPE html>
+﻿@* Layout principal: este archivo es la plantilla base de TODAS las páginas del sistema
+   Cada vista individual se inserta donde dice @RenderBody() *@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    @* El título de cada página se define en cada vista con ViewData["Title"] *@
     <title>@ViewData["Title"] - GestionAereolinea.UI</title>
 
+    @* Hoja de estilos de Bootstrap para el diseño responsivo *@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    @* Estilos personalizados del proyecto (colores, sidebar, etc.) *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @* Estilos generados automáticamente por ASP.NET para componentes aislados *@
     <link rel="stylesheet" href="~/GestionAereolinea.UI.styles.css" asp-append-version="true" />
 </head>
-
 <body>
 
+    @* Contenedor principal: ocupa al menos el 100% de la pantalla en altura *@
     <div class="wrapper d-flex flex-column min-vh-100">
 
-        
+        @* Área central: sidebar + contenido de la página *@
         <div class="d-flex flex-grow-1">
 
-         
+            @* Barra lateral de navegación (sidebar) — visible en todas las páginas *@
             <div id="sidebar-wrapper" class="d-flex flex-column">
                 <div class="sidebar-heading text-center py-4 fw-bold">Gestión Aérea</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">Inicio</a>
-                    <a class="list-group-item list-group-item-action" asp-controller="GestionDeAerolineas" asp-action="Index">Aerolíneas</a>
-                    <a class="list-group-item list-group-item-action" asp-controller="GestionDeAviones" asp-action="Index">Aviones</a>
-                    <a class="list-group-item list-group-item-action" asp-controller="GestionDeAvionesActivos" asp-action="Index">Aviones Activos</a>
-                    <a class="list-group-item list-group-item-action" asp-controller="GestionDeAvionesInactivos" asp-action="Index">Aviones Inactivos</a>
-                   
 
+                @* Menú de navegación: cada enlace apunta a un controlador y acción específica
+                   asp-controller y asp-action generan la URL correcta automáticamente *@
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action"
+                       asp-controller="Home" asp-action="Index">Inicio</a>
+
+                    <a class="list-group-item list-group-item-action"
+                       asp-controller="GestionDeAerolineas" asp-action="Index">Aerolíneas</a>
+
+                    <a class="list-group-item list-group-item-action"
+                       asp-controller="GestionDeAviones" asp-action="Index">Aviones</a>
+
+                    <a class="list-group-item list-group-item-action"
+                       asp-controller="GestionDeAvionesActivos" asp-action="Index">Aviones Activos</a>
+
+                    <a class="list-group-item list-group-item-action"
+                       asp-controller="GestionDeAvionesInactivos" asp-action="Index">Aviones Inactivos</a>
                 </div>
             </div>
 
+            @* Área de contenido: aquí se renderiza cada vista individual *@
             <div id="page-content-wrapper" class="flex-grow-1">
                 <main role="main" class="p-4">
+                    @* @RenderBody() es el punto donde se inserta el contenido de cada vista *@
                     @RenderBody()
                 </main>
             </div>
-
         </div>
 
+        @* Pie de página visible en todas las páginas del sistema *@
         <footer class="text-center">
             &copy; 2026 - Sistema de Gestión Aérea
         </footer>
-
     </div>
 
-   
+    @* Librería jQuery necesaria para Bootstrap y validaciones del formulario *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    @* Bundle de Bootstrap con JavaScript para componentes interactivos *@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @* Scripts personalizados del proyecto *@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    @* Punto de extensión: cada vista puede agregar sus propios scripts aquí
+       Por ejemplo, Create.cshtml agrega los scripts de validación *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

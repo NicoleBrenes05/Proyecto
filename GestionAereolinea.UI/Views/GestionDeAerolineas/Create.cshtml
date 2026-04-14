@@ -1,67 +1,76 @@
-﻿@model GestionAereolinea.Model.Aerolinea
-
+﻿@* Modelo de esta vista: la clase Aerolinea que contiene todos los campos del formulario *@
+@model GestionAereolinea.Model.Aerolinea
 @{
+    // Título que se muestra en la pestaña del navegador
     ViewData["Title"] = "Registrar Aerolínea";
 }
 
+@* Si el controlador envía ProblemasAlInsertar = true se muestra este mensaje de error
+   Esto ocurre cuando la API no pudo guardar la aerolínea correctamente *@
 @if (@ViewData["ProblemasAlInsertar"] as bool? == true)
 {
     <div class="alert alert-danger" role="alert">
         Problemas al insertar la aerolínea
     </div>
 }
-<div class="container text-center mt-4">
 
+<div class="container text-center mt-4">
     <h1 class="titulo-sistema mb-4">Registrar Aerolínea</h1>
     <hr />
 
     <div class="container mt-5">
         <div class="d-flex justify-content-center">
 
+            @* Tarjeta principal dividida en dos columnas: imagen a la izquierda, formulario a la derecha *@
             <div class="card shadow" style="max-width: 600px; border-radius: 15px; overflow: hidden; min-height: 30vh;">
                 <div class="row g-0">
 
-                  
+                    @* Columna izquierda: imagen decorativa relacionada con el tema de aerolíneas *@
                     <div class="col-md-6">
                         <img src="https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                              class="img-fluid h-100"
                              style="object-fit: cover;" />
                     </div>
 
-                  
+                    @* Columna derecha: formulario de registro *@
                     <div class="col-md-6">
                         <div class="card-body p-4">
                             <h4 class="text-center mb-3">Registrar Aerolínea</h4>
 
+                            @* asp-action="Create" indica que al enviar el formulario se llama
+                               al método Create (POST) del controlador GestionDeAerolineasController *@
                             <form asp-action="Create">
+
+                                @* asp-for enlaza cada campo con la propiedad del modelo Aerolinea
+                                   Esto genera automáticamente el name, id y validaciones del input *@
                                 <div class="mb-3">
                                     <input asp-for="Nombre" class="form-control" placeholder="Nombre">
                                 </div>
-
                                 <div class="mb-3">
                                     <input asp-for="Telefono" class="form-control" placeholder="Teléfono">
                                 </div>
-
                                 <div class="mb-3">
                                     <input asp-for="Codigo" class="form-control" placeholder="Código">
                                 </div>
-
                                 <div class="mb-3">
                                     <input asp-for="PaísOrigen" class="form-control" placeholder="País de origen">
                                 </div>
 
+                                @* Botón de envío: al hacer clic dispara el POST del formulario *@
                                 <button type="submit" class="btn btn-primary w-100">
                                     Registrar
                                 </button>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
+</div>
+
+@* Sección de scripts: carga las validaciones del lado del cliente
+   Muestra errores en los campos antes de enviar el formulario al servidor *@
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
