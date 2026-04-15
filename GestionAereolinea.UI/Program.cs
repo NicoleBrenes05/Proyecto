@@ -12,7 +12,7 @@ var urlBase = apiConfig.GetValue<string>("BaseUrl");
 builder.Services.AddHttpClient("AerolineaApi", client =>
 {
     client.BaseAddress = new Uri(urlBase);
-    client.DefaultRequestHeaders.Add("X-API-KEY", "123456");
+    
 });
 // Inyección del servicio
 builder.Services.AddScoped<ServicioApi>();
